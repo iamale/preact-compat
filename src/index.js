@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { render as preactRender, cloneElement as preactCloneElement, h, Component as PreactComponent, options } from 'preact';
+import Portal from 'preact-portal';
 
 const version = '15.1.0'; // trick libraries to think we are react
 
@@ -591,6 +592,10 @@ PureComponent.prototype.shouldComponentUpdate = function(props, state) {
 	return shallowDiffers(this.props, props) || shallowDiffers(this.state, state);
 };
 
+function createPortal(child, container) {
+	return h(Portal, { into: container }, child);
+}
+
 export {
 	version,
 	DOM,
@@ -607,6 +612,7 @@ export {
 	Component,
 	PureComponent,
 	renderSubtreeIntoContainer as unstable_renderSubtreeIntoContainer,
+	createPortal,
 	// this is a really old hidden react api, but something out there uses it
 	// https://twitter.com/Joseph_Wynn/status/888046593286574085
 	extend as __spread
@@ -627,6 +633,7 @@ export default {
 	unmountComponentAtNode,
 	Component,
 	PureComponent,
+	createPortal,
 	unstable_renderSubtreeIntoContainer: renderSubtreeIntoContainer,
 	__spread: extend
 };
